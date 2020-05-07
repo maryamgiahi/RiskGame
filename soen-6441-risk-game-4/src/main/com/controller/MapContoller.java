@@ -1,4 +1,4 @@
-package com.mapparser;
+package com.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import com.exception.InvalidMap;
  * @author Maryam
  * @author Mahmoudreza
  */
-public class MapCommands {
+public class MapContoller {
 	
 	private static int countryIdx = 1;
 	
@@ -321,7 +321,13 @@ public class MapCommands {
 						return false;
 					}
 					
-					country.getAdjacentCountries().add(c.getCountryMap().get(nbrCountryName));
+					for (Continent c1: map.getContinents()) {
+						for (Country country1: c1.getCountries()) {
+							if (country1.getName().equalsIgnoreCase(nbrCountryName))
+								country.getAdjacentCountries().add(country1);
+						}
+					}
+					
 					country.getNeighborCountries().add(nbrCountryName);
 					
 					System.out.println("The neighbor country: " + nbrCountryName + 
@@ -336,8 +342,13 @@ public class MapCommands {
 						System.out.println("Exception: The neighbor country already exist");
 						return false;
 					}
-					
-					country.getAdjacentCountries().add(c.getCountryMap().get(countryName));
+	
+					for (Continent c1: map.getContinents()) {
+						for (Country country1: c1.getCountries()) {
+							if (country1.getName().equalsIgnoreCase(countryName))
+								country.getAdjacentCountries().add(country1);
+						}
+					}
 					country.getNeighborCountries().add(countryName);
 					isNeigborAdded = true;
 				}

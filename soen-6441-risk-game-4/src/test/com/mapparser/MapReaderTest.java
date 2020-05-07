@@ -27,7 +27,7 @@ public class MapReaderTest {
 			"country_without_continent.map", "countries_in_same_continent.map" };
 
 	/**
-	 * This method runs before running all methods in the class.
+	 * This method runs only once before running all methods in the class.
 	 */
 	@BeforeClass
 	public static void beforeClass() {
@@ -36,7 +36,7 @@ public class MapReaderTest {
 
 	/**
 	 * This method runs before running each test methods. 
-	 * @throws IOException
+	 * @throws IOException io Exception
 	 */
 	@Before
 	public void beforeMethods() throws IOException {
@@ -46,7 +46,7 @@ public class MapReaderTest {
 	}
 
 	/**
-	 * This method runs after all testing methods.
+	 * This method runs only once after all testing methods.
 	 */
 	@AfterClass
 	public static void afterAllTests() {
@@ -55,7 +55,7 @@ public class MapReaderTest {
 
 	/**
 	 * This method tests map validation 
-	 * @throws InvalidMap
+	 * @throws InvalidMap Invalid Map
 	 */
 	@Test
 	public void testMapValidation() throws InvalidMap {

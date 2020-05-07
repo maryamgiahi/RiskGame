@@ -9,7 +9,7 @@ import com.entity.Country;
 
 /**
  * This class defines properties of a continent like name of continent, control value and list of countries.
- * @author Mahmoudreza
+ * @author Maryam
  * @see Country
  */
 public class Continent {

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -16,7 +17,7 @@ import com.entity.Continent;
 
 /**
  * This class reads, parses the map file and sets data in corresponding objects.
- * 
+ *
  * @author Maryam
  * @author Mahmoudreza
  */
@@ -145,6 +146,19 @@ public class MapReader {
 		}
 		map.setContinentMap(continentMap);
 		map.setContinents(continentList);
+		
+		// Set Hashmap Country Name: Country object
+		Map<String, Country> countryMap = map.getCountryMap();
+		
+		// Set country list
+		ArrayList<Country> countryList = map.getCountries();
+		
+		for (Continent continent : continentList) {
+			for (Country c : continent.getCountries()) {
+				countryMap.put(c.getName(), c);
+				countryList.add(c);
+			}
+		}
 		
 		return map;
 	}

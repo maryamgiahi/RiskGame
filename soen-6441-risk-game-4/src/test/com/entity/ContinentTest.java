@@ -9,7 +9,7 @@ import org.junit.*;
 import com.entity.Continent;
 
 /**
- * This is a Test Class for testing card
+ * This is a Test Class for testing continent
  * 
  * @author Maryam
  * @author Mahmoudreza
@@ -63,5 +63,4 @@ public class ContinentTest {
 		assertNotEquals("Advance Programming", cont.getName());
 		System.out.println("'assertNotEqual' test for getName method is passed");
 	}
-
 }

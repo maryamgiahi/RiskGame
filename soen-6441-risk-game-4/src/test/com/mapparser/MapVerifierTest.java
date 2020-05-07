@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +15,6 @@ import com.entity.Country;
 import com.entity.Hmap;
 import com.exception.InvalidMap;
 import com.mapparser.MapVerifier;
-import com.mapparser.MapReader;
 
 /**
  * This is the test class for MapVerifier. {@link MapVerifier}
@@ -26,10 +24,15 @@ import com.mapparser.MapReader;
  * @version 0.0.1
  */
 public class MapVerifierTest {
-	MapVerifier mapverifier;
-	static Continent continent;
-	static Country country;
+	
+	static Continent continent1;
+	static Continent continent2;
+	static Country country1;
+	static Country country2;
+	static Country country3;	
 	static Hmap map;
+	
+	MapVerifier mapverifier;
 	ClassLoader loader;
 
 	String mapAuthor = "Maryam";
@@ -38,9 +41,20 @@ public class MapVerifierTest {
 	String mapScroll = "horizontal";
 	String mapWarn = "yes";
 
-	String continentName = "North-America";
-	int controlValue = 10;
-
+	String conti1 = "North-America";
+	int controlValue1 = 10;
+	String conti2 = "Asia";
+	int controlValue2 = 11;
+	String count1 = "Quebec";
+	String count2 = "Ontario";
+	String count3 = "India";
+	int x1 = 1;
+	int y1 = 1;
+	int x2 = 2;
+	int y2 = 2;
+	int x3 = 1;
+	int y3 = 2;
+	
 	static HashMap<String, String> mapData = new HashMap<>();
 	List<Continent> continentList;
 
@@ -50,9 +64,6 @@ public class MapVerifierTest {
 	@BeforeClass
 	public static void beforeClass() {
 		System.out.println("This is for testing MapVerifier Class");
-		continent = new Continent();
-		country = new Country();
-		map = new Hmap();
 	}
 
 	/**
@@ -60,14 +71,18 @@ public class MapVerifierTest {
 	 */
 	@Before
 	public void beforeTest() {
+		continent1 = new Continent();
+		country1 = new Country();
+		
+		map = new Hmap();
 		map.setMapData(mapData);
-		continent.setName(continentName);
-		continent.setValue(controlValue);
-		country.setName("Quebec");
-		country.setxCoordinate(1);
-		country.setyCoordinate(1);
+		continent1.setName(conti1);
+		continent1.setValue(controlValue1);
+		country1.setName(count1);
+		country1.setxCoordinate(x1);
+		country1.setyCoordinate(y1);
 		continentList = new ArrayList<>();
-		continentList.add(continent);
+		continentList.add(continent1);
 	}
 
 	/**
@@ -75,11 +90,12 @@ public class MapVerifierTest {
 	 */
 	@AfterClass
 	public static void afterClassTests() {
-		System.out.println("The test is done");
+		System.out.println("The map verify test is done");
 	}
 
 	/**
 	 * This method tests that map is null or not.
+	 * @throws InvalidMap Invalid Map
 	 */
 	@Test(expected = InvalidMap.class)
 	public void verifyNullMapTest() throws InvalidMap {
@@ -89,6 +105,7 @@ public class MapVerifierTest {
 
 	/**
 	 * This method verifies that map has at least one continent.
+	 * @throws InvalidMap Invalid Map
 	 */
 	@Test(expected = InvalidMap.class)
 	public void verifyMap() throws InvalidMap {
@@ -98,8 +115,7 @@ public class MapVerifierTest {
 
 	/**
 	 * This method is used to verify that continent is null or not.
-	 * 
-	 * @throws InvalidMapException invalid map exception.
+	 * @throws InvalidMap Invalid Map
 	 */
 	@Test(expected = InvalidMap.class)
 	public void verifyContinentsTest() throws InvalidMap {
@@ -110,9 +126,10 @@ public class MapVerifierTest {
 
 	/**
 	 * This method is used to test if a continent is a sub-graph or not.
+	 * @throws InvalidMap Invalid Map
 	 */
 	@Test
-	public void isMapConnectedGraphTest() throws InvalidMap {
+	public void isMapNotConnectedGraphTest() throws InvalidMap {
 		assertFalse(mapverifier.isMapConnectedGraph(map));
 		System.out.println("This Unit Test for Map_Connected_Graph is performed");
 	}
@@ -125,17 +142,79 @@ public class MapVerifierTest {
 
 		System.out.println("This is a test for Continent Connected Graph");
 		List<Country> countryList = new ArrayList<>();
-		countryList.add(country);
-		Country country2 = new Country();
-		country2.setName("Iran");
-		country2.setxCoordinate(1);
-		country2.setyCoordinate(2);
-		countryList.add(country);
-		continent.setCountries(countryList);
-		assertEquals(true, MapVerifier.isContinentConnectedGraph(continent, map));
-		countryList.add(country);
-		continent.setCountries(countryList);
-		assertEquals(MapVerifier.isContinentConnectedGraph(continent, map), true);
+		countryList.add(country1);
+		country2 = new Country();
+		country2.setName(count2);
+		country2.setxCoordinate(x2);
+		country2.setyCoordinate(y2);
+		countryList.add(country2);
+		country2.getAdjacentCountries().add(country1);
+		country1.getAdjacentCountries().add(country2);
+		continent1.setCountries(countryList);
+		assertEquals(true, MapVerifier.isContinentConnectedGraph(continent1, map));
 		System.out.println("The Unit Test for Continent_Connected_Graph is performed");
+	}
+	
+	/**
+	 * This method is used to test the continent is connected to graph or not.
+	 */
+	@Test
+	public void isContinentNotConnectedGraphTest() {
+
+		System.out.println("This is a test for Continent not Connected Graph");
+		List<Country> countryList = new ArrayList<>();
+		countryList.add(country1);
+		country2 = new Country();
+		country2.setName(count2);
+		country2.setxCoordinate(x2);
+		country2.setyCoordinate(y2);
+		countryList.add(country2);
+		country3 = new Country();
+		country3.setName(count3);
+		country3.setxCoordinate(x3);
+		country3.setyCoordinate(y3);
+		countryList.add(country3);
+		country2.getAdjacentCountries().add(country1);
+		country1.getAdjacentCountries().add(country2);
+		continent1.setCountries(countryList);
+		assertNotEquals(true, MapVerifier.isContinentConnectedGraph(continent1, map));
+		System.out.println("The Unit Test for Continent_Not_Connected_Graph is performed");
+	}
+	
+	/**
+	 * This method is used to test the map is connected to graph or not.
+	 */
+	@Test
+	public void isMapConnectedGraphTest() {
+
+		System.out.println("This is a test for Continent not Connected Graph");
+		List<Country> countryList = new ArrayList<>();
+		countryList.add(country1);
+		country2 = new Country();
+		country2.setName(count2);
+		country2.setxCoordinate(x2);
+		country2.setyCoordinate(y2);
+		countryList.add(country2);
+		country2.getAdjacentCountries().add(country1);
+		country1.getAdjacentCountries().add(country2);
+		continent1.setCountries(countryList);
+		country3 = new Country();
+		country3.setName(count3);
+		country3.setxCoordinate(4);
+		country3.setyCoordinate(6);
+		List<Country> countryList1 = new ArrayList<>();
+		countryList1.add(country3);
+		continent2 = new Continent();
+		continent2.setName(conti2);
+		continent2.setValue(11);
+		continentList.add(continent2);
+		continent2.setCountries(countryList1);
+		country3.getAdjacentCountries().add(country1);
+		country1.getAdjacentCountries().add(country3);
+		country3.getAdjacentCountries().add(country2);
+		country2.getAdjacentCountries().add(country3);
+		map.setContinents(continentList);
+		assertEquals(MapVerifier.isMapConnectedGraph(map), true);
+		System.out.println("The Unit Test for Map_Connected_Graph is performed");
 	}
 }

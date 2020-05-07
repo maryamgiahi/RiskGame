@@ -3,7 +3,7 @@ package com.exception;
 
 /**
  * User defined exception is defined in this class
- * @author Maryam
+ * @author Mehul
  */
 public class InvalidMap extends Exception {
 

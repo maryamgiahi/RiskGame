@@ -5,7 +5,7 @@ import com.entity.Country;
 
 /**
  * This is the main class for the card.
- * @author Mahmoudreza
+ * @author Maryam
  */
 public class Card {
 
@@ -58,6 +58,6 @@ public class Card {
 	 */
 	@Override
 	public String toString() {
-		return "Card [cardType = " + cardType + ", CountryofCard = " + countryToWhichCardBelong + "]";
+		return "[cardType = " + cardType + ", CountryofCard = " + countryToWhichCardBelong + "], ";
 	}
 }

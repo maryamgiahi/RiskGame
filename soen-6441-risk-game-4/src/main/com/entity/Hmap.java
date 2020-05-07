@@ -8,7 +8,7 @@ import com.entity.Hmap;
 
 /**
  * This class describes Map and its list of continents
- * @author Mahmoudreza
+ * @author Maryam
  * @see Country
  * @see Continent
  */
@@ -20,7 +20,9 @@ public class Hmap {
 	private HashMap<String, Integer> countriesIdxMap;
 
 	private HashMap<String, String> filesAttribute;
-	
+	private Map<String, Country> countryMap;
+	private ArrayList<Country> countries;
+
 	
 	/**
 	 * This is the default constructor of Hmap.
@@ -28,8 +30,10 @@ public class Hmap {
 	public Hmap() {
 		filesAttribute = new HashMap <String, String>();
 		continents = new ArrayList <Continent>();
+		countries = new ArrayList <Country>();
 		continentMap = new HashMap <String,Continent>();
 		countriesIdxMap = new HashMap <String,Integer>();
+		countryMap = new TreeMap<String, Country>(String.CASE_INSENSITIVE_ORDER);
 	}
 	
 	/**
@@ -52,8 +56,26 @@ public class Hmap {
 	}
 	
 	/**
+	 * Setter method for the country hash-map.
+	 *
+	 * @param countryMap hash-map of country
+	 */
+	public void setCountryMap(Map<String, Country> countryMap) {
+		this.countryMap = countryMap;
+	}
+
+	/**
+	 * Get method for country hash-map.
+	 *
+	 * @return map of countries
+	 */
+	public Map<String, Country> getCountryMap() {
+		return countryMap;
+	}
+	
+	/**
 	 * This sets the map data.
-	 * @param mapData
+	 * @param mapData map data
 	 */
 	public void setMapData(HashMap <String, String> mapData) {
 		this.filesAttribute = mapData;
@@ -69,10 +91,26 @@ public class Hmap {
 	
 	/**
 	 * This sets the continents.
-	 * @param continents
+	 * @param continents list of continents
 	 */
 	public void setContinents(List <Continent> continents) {
 		this.continents = continents;
+	}
+
+	/**
+	 * It returns list of countries.
+	 * @return countries
+	 */
+	public ArrayList <Country> getCountries() {
+		return countries;
+	}
+	
+	/**
+	 * This sets the countries.
+	 * @param countries list of countries
+	 */
+	public void setCountries(ArrayList <Country> countries) {
+		this.countries = countries;
 	}
 	
 	/**
@@ -85,7 +123,7 @@ public class Hmap {
 	
 	/**
 	 * This sets the continent index map.
-	 * @param countriesIdxMap
+	 * @param countriesIdxMap continent index map
 	 */
 	public void setCountriesIdxMap(HashMap <String, Integer> countriesIdxMap) {
 		this.countriesIdxMap = countriesIdxMap;
@@ -101,7 +139,7 @@ public class Hmap {
 	
 	/**
 	 * This sets the continent map.
-	 * @param continentMap
+	 * @param continentMap continent map
 	 */
 	public void setContinentMap(HashMap <String, Continent> continentMap) {
 		this.continentMap = continentMap;
